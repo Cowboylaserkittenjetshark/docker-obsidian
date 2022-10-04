@@ -4,4 +4,5 @@
 [[ ! -f /config/.config/openbox/menu.xml ]] && \
     mkdir -p /config/.config/openbox && \
     cp /defaults/menu.xml /config/.config/openbox/menu.xml && \
+    cp /defaults/rc.xml /config/.config/openbox/rc.xml && \
     chown -R abc:abc /config/.config
