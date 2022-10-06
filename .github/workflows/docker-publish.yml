@@ -7,7 +7,7 @@ name: Docker
 
 on:
   schedule:
-    - cron: '45 15 * * *'
+    - cron: '22 13 * * *'
   push:
     branches: [ "main" ]
     # Publish semver tags as releases.
@@ -81,7 +81,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-@
+
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
       # repository is public to avoid leaking data.  If you would like to publish
