@@ -42,4 +42,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FILE_TO_COMMIT: Dockerfile
           DESTINATION_BRANCH: main
-        run: $GITHUB_WORKSPACE/.github/workflows/commitChanges.sh
+        run: $GITHUB_WORKSPACE/.github/workflows/commitChange.sh
