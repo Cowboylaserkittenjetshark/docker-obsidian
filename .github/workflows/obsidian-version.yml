@@ -39,5 +39,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FILE_TO_COMMIT: Dockerfile
-          DESTINATION_BRANCH: main
+          DESTINATION_BRANCH: master
         run: $GITHUB_WORKSPACE/.github/workflows/commitChange.sh
