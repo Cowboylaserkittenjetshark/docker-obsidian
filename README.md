@@ -8,7 +8,7 @@ A web accessible Obsidian Docker container
 version: "2.1"
 services:
   obsidian:
-    image: obsidian:latest
+    image: ghcr.io/cowboylaserkittenjetshark/docker-obsidian:latest
     container_name: obsidian
     environment:
       - PUID=1000
