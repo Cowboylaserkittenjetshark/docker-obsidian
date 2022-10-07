@@ -22,9 +22,9 @@ services:
     restart: unless-stopped
 ```
     
-### Build locally to use a differen version of Obsidian:
+### Build locally to use a different version of Obsidian:
 ```shell
-docker build -t docker-obsidian:latest --build-arg OBSIDIAN_VERSION=<version> .
+docker build -t ghcr.io/cowboylaserkittenjetshark/docker-obsidian:latest --build-arg OBSIDIAN_VERSION=<version> .
 ```
 
 ### Credits
