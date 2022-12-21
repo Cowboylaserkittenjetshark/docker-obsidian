@@ -32,8 +32,8 @@ jobs:
           DESTINATION_BRANCH: master
         run: |
           $GITHUB_WORKSPACE/.github/workflows/commitChange.sh
-          echo "$?" >> $GITHUB_OUTPUT
+          echo "EXIT_CODE="$?"" >> $GITHUB_OUTPUT
   call-docker-publish:
     needs: build
-    if: needs.build.outputs.output1 == 0
+    if: needs.build.outputs.EXIT_CODE == 0
     uses: ./.github/workflows/docker-publish.yml
