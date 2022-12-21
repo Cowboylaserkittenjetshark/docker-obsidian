@@ -20,6 +20,7 @@ jobs:
           excludes: prerelease, draft
 
       - name: Update OBSIDIAN_VERSION in Dockerfile
+        id: script
         env:
           OBSIDIAN_VERSION: ${{ steps.obsidian-upstream.outputs.release }}
         run: sed -i "s/ARG OBSIDIAN_VERSION=.*/ARG OBSIDIAN_VERSION=${OBSIDIAN_VERSION//v/}/" $GITHUB_WORKSPACE/Dockerfile
@@ -30,3 +31,6 @@ jobs:
           FILE_TO_COMMIT: Dockerfile
           DESTINATION_BRANCH: master
         run: $GITHUB_WORKSPACE/.github/workflows/commitChange.sh
+  call-docker-publish:
+    if: build.steps.script.? == 0
+    uses: ./.github/workflows/docker-publish.yml
