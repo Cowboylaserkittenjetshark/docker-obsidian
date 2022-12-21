@@ -10,7 +10,7 @@ if [[ -n "$(git status --porcelain)" ]]; then
           --field encoding="base64" \
           --field branch="$DESTINATION_BRANCH" \
           --field sha="$SHA"
-  exit 0
+  echo "Commited"
 else
-  exit 255
+  echo "Nothing to commit"
 fi
