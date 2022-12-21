@@ -15,6 +15,7 @@ on:
   pull_request:
     branches: [ "master" ]
   workflow_dispatch:
+  workflow_call:
 
 env:
   # Use docker.io for Docker Hub if empty
