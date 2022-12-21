@@ -1,6 +1,6 @@
 FROM ghcr.io/linuxserver/baseimage-rdesktop-web:focal
 
-ARG OBSIDIAN_VERSION=9000
+ARG OBSIDIAN_VERSION=1.1.8
 LABEL maintainer="Cowboylaserkittenjetshark"
 LABEL org.opencontainers.image.source=https://github.com/Cowboylaserkittenjetshark/docker-obsidian
 LABEL org.opencontainers.image.description="A web accessible Obsidian Docker container"
