@@ -30,7 +30,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FILE_TO_COMMIT: Dockerfile
           DESTINATION_BRANCH: master
-        run: $GITHUB_WORKSPACE/.github/workflows/commitChange.sh
+        run: |
+          $GITHUB_WORKSPACE/.github/workflows/commitChange.sh
+          echo "$?" >> $GITHUB_OUTPUT
   call-docker-publish:
-    if: build.steps.script.? == 0
+    needs: build
+    if: needs.build.outputs.output1 == 0
     uses: ./.github/workflows/docker-publish.yml
