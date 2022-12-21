@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      COMMITTED: ${{ steps.script.outputs.committed }}
 
     steps:
       - uses: actions/checkout@v3
@@ -33,5 +35,5 @@ jobs:
         run: $GITHUB_WORKSPACE/.github/workflows/commitChange.sh >> $GITHUB_OUTPUT
   call-docker-publish:
     needs: build
-    if: needs.build.outputs.COMMITED == 'true'
+    if: needs.build.outputs.COMMITTED == 'true'
     uses: ./.github/workflows/docker-publish.yml
