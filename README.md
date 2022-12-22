@@ -1,5 +1,5 @@
 # docker-obsidian
-[![Docker](https://github.com/Cowboylaserkittenjetshark/docker-obsidian/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/Cowboylaserkittenjetshark/docker-obsidian/actions/workflows/docker-publish.yml) [![Update Obsidian Version](https://github.com/Cowboylaserkittenjetshark/docker-obsidian/actions/workflows/obsidian-version.yml/badge.svg)](https://github.com/Cowboylaserkittenjetshark/docker-obsidian/actions/workflows/obsidian-version.yml)
+[![Docker](https://github.com/Cowboylaserkittenjetshark/docker-obsidian/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/Cowboylaserkittenjetshark/docker-obsidian/actions/workflows/docker-publish.yml)
 
 A web accessible Obsidian Docker container
 
