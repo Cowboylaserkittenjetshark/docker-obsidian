@@ -6,8 +6,8 @@ name: Docker
 # documentation.
 
 on:
-#   schedule:
-#     - cron: '22 13 * * *'
+  schedule:
+    - cron: '22 13 * * *'
   push:
     branches: [ "master" ]
     # Publish semver tags as releases.
@@ -43,21 +43,43 @@ jobs:
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
+      - id: obsidian-upstream
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          owner: obsidianmd
+          repo: obsidian-releases
+          excludes: prerelease, draft
+
+      - name: Update OBSIDIAN_VERSION in Dockerfile
+        env:
+          OBSIDIAN_VERSION: ${{ steps.obsidian-upstream.outputs.release }}
+        run: sed -i "s/ARG OBSIDIAN_VERSION=.*/ARG OBSIDIAN_VERSION=${OBSIDIAN_VERSION//v/}/" $GITHUB_WORKSPACE/Dockerfile
+
+      - name: Test for changes, commit, and push
+        id: script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILE_TO_COMMIT: Dockerfile
+          DESTINATION_BRANCH: master
+        run: $GITHUB_WORKSPACE/.github/workflows/commitChange.sh >> $GITHUB_OUTPUT
+
       - name: Install cosign
         if: github.event_name != 'pull_request'
+        if: steps.script.outputs.committed == 'true'
         uses: sigstore/cosign-installer@f3c664df7af409cb4873aa5068053ba9d61a57b6 #v2.6.0
         with:
           cosign-release: 'v1.13.1'
 
-
       # Workaround: https://github.com/docker/build-push-action/issues/461
       - name: Setup Docker buildx
+        if: steps.script.outputs.committed == 'true'
         uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
       - name: Log into registry ${{ env.REGISTRY }}
         if: github.event_name != 'pull_request'
+        if: steps.script.outputs.committed == 'true'
         uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
         with:
           registry: ${{ env.REGISTRY }}
@@ -67,6 +89,7 @@ jobs:
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
+        if: steps.script.outputs.committed == 'true'
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
@@ -77,6 +100,7 @@ jobs:
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
+        if: steps.script.outputs.committed == 'true'
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
@@ -95,6 +119,7 @@ jobs:
       # https://github.com/sigstore/cosign
       - name: Sign the published Docker image
         if: ${{ github.event_name != 'pull_request' }}
+        if: steps.script.outputs.committed == 'true'
         env:
           COSIGN_EXPERIMENTAL: "true"
         # This step uses the identity token to provision an ephemeral certificate
