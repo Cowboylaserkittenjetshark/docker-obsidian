@@ -42,11 +42,12 @@ jobs:
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - id: obsidian-upstream
-        uses: pozetroninc/github-action-get-latest-release@master
+        uses: Cowboylaserkittenjetshark/github-action-get-latest-release@master
         with:
           owner: obsidianmd
           repo: obsidian-releases
           excludes: prerelease, draft
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update OBSIDIAN_VERSION in Dockerfile
         env:
