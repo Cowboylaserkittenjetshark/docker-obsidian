@@ -42,7 +42,7 @@ jobs:
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - id: obsidian-upstream
-        uses: Cowboylaserkittenjetshark/github-action-get-latest-release@master
+        uses: pozetroninc/github-action-get-latest-release@master
         with:
           owner: obsidianmd
           repo: obsidian-releases
